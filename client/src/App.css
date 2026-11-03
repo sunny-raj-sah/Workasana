@@ -182,3 +182,105 @@
     border-right-color: var(--border);
   }
 }
+
+
+
+/* Topbar user profile */
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-user-avatar {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  background: #635bff;
+  border-radius: 50%;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+}
+
+.topbar-user-avatar:hover {
+  color: #fff;
+  background: #4b43d4;
+  transform: translateY(-2px);
+}
+
+.topbar-user-info {
+  color: #151a2d;
+  text-decoration: none;
+}
+
+.topbar-user-info:hover {
+  color: #635bff;
+}
+
+.topbar-user-name {
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+/* Responsive topbar */
+@media (max-width: 768px) {
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-left: 62px;
+  }
+
+  .topbar-heading {
+    min-width: 0;
+  }
+
+  .topbar-title {
+    font-size: 1.1rem;
+  }
+
+  .topbar-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .topbar-user-info {
+    display: none;
+  }
+
+  .topbar-user-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    gap: 8px;
+  }
+
+  .topbar-title {
+    font-size: 1rem;
+  }
+
+  .topbar-subtitle {
+    max-width: 180px;
+  }
+}

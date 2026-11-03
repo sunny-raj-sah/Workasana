@@ -30,7 +30,11 @@ const TaskCard = ({ task, onStatusChange }) => {
         <div>
           <h6 className="fw-bold mb-1">{task.name}</h6>
           <div className="text-muted small">
-            {task.team?.name} • {task.owners?.map((o) => o.name).join(", ")}
+            {/* {task.team?.name} • {task.owners?.map((o) => o.name).join(", ")} */}
+            {task.team?.name} •{" "}
+{task.owners
+  ?.map((owner) => owner?.name || owner?.email || "Unnamed user")
+  .join(", ")}
           </div>
         </div>
 

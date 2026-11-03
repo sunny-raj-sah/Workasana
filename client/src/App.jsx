@@ -1,5 +1,8 @@
  import { Routes, Route, Navigate } from "react-router-dom";
+
 import ProtectedRoute from "./components/ProtectedRoute";
+import LandingPage from "./pages/LandingPage";
+
 
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
@@ -8,14 +11,16 @@ import TaskDetails from "./pages/TaskDetails";
 import Teams from "./pages/Teams";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+// import Login from "./pages/Login";
+// import Signup from "./pages/Signup";
 
 function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      {/* Public landing page and authentication entry points */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LandingPage />} />
+      <Route path="/signup" element={<LandingPage />} />
 
       <Route
         path="/dashboard"
@@ -79,8 +84,8 @@ function App() {
           </ProtectedRoute>
         }
       />
-
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+  {/* Unknown routes */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

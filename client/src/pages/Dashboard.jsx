@@ -1,365 +1,872 @@
- import { useEffect, useMemo, useState } from "react";
+//  import { useEffect, useMemo, useState } from "react";
+// import Layout from "../components/Layout";
+// import api from "../services/api";
+// import toast from "react-hot-toast";
+// import TaskSearch from "../components/TaskSearch";
+
+// const Dashboard = () => {
+//   const [projects, setProjects] = useState([]);
+//   const [tasks, setTasks] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [filter, setFilter] = useState("In Progress");
+// const [searchTerm, setSearchTerm] = useState("");
+
+//   useEffect(() => {
+//     // eslint-disable-next-line react-hooks/immutability
+//     loadDashboard();
+//   }, []);
+
+//   const loadDashboard = async () => {
+//     try {
+//       setLoading(true);
+
+//       const [projectsRes, tasksRes] = await Promise.all([
+//         api.get("/projects"),
+//         api.get("/tasks"),
+//       ]);
+
+//       setProjects(projectsRes.data);
+//       setTasks(tasksRes.data);
+//     } catch (error) {
+//       toast.error("Failed to load dashboard data");
+//       console.log("message:",error)
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const completedCount = useMemo(
+//     () => tasks.filter((t) => t.status === "Completed").length,
+//     [tasks]
+//   );
+
+//   // const filteredTasks = useMemo(() => {
+//   //   if (!filter) return tasks;
+//   //   return tasks.filter((t) => t.status === filter);
+//   // }, [tasks, filter]);
+// const filteredTasks = useMemo(() => {
+//   let result = tasks;
+
+//   // Status filter
+//   if (filter) {
+//     result = result.filter((t) => t.status === filter);
+//   }
+
+//   // Search filter
+//   const search = searchTerm.trim().toLowerCase();
+
+//   if (search) {
+//     result = result.filter((t) => {
+//       const taskName = t.title?.toLowerCase() || "";
+//       const projectName = t.project?.name?.toLowerCase() || "";
+
+//       return (
+//         taskName.includes(search) ||
+//         projectName.includes(search)
+//       );
+//     });
+//   }
+
+//   return result;
+// }, [tasks, filter, searchTerm]);
+
+ 
+//   const recentTasks = filteredTasks.slice(0, 5);
+
+//  const displayedTasks = searchTerm.trim()
+//   ? filteredTasks
+//   : recentTasks;
+
+//   return (
+//     <Layout title="Dashboard"
+//     subtitle="Overview of projects, tasks and team activity">
+//       {loading ? (
+//         <div className="content-card text-center py-5">
+//           <div className="spinner-border text-primary mb-3"></div>
+//           <div className="text-muted">Loading dashboard...</div>
+//         </div>
+//       ) : (
+//         <>
+//         {/* search bar */}
+//    <div className="content-card mb-4">
+//   <div className="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+//     <div>
+//       <h5 className="fw-bold mb-1">Search Tasks</h5>
+//       <p className="text-muted mb-0">
+//         Search by task name or project name
+//       </p>
+//     </div>
+
+//     <TaskSearch
+//       value={searchTerm}
+//       onChange={setSearchTerm}
+//     />
+//   </div>
+// </div>
+// {/* ---------------------------------------------------------- */}
+
+//           <div className="row g-4 mb-4">
+//             <div className="col-12 col-md-6 col-xl-3">
+//               <div className="content-card h-100">
+//                 <div className="d-flex justify-content-between align-items-start">
+//                   <div>
+//                     <div className="text-muted small mb-2">Total Projects</div>
+//                     <h3 className="fw-bold mb-0">{projects.length}</h3>
+//                   </div>
+//                   <div className="rounded-4 bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
+//                     <i className="bi bi-folder-fill fs-4"></i>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="col-12 col-md-6 col-xl-3">
+//               <div className="content-card h-100">
+//                 <div className="d-flex justify-content-between align-items-start">
+//                   <div>
+//                     <div className="text-muted small mb-2">Total Tasks</div>
+//                     <h3 className="fw-bold mb-0">{tasks.length}</h3>
+//                   </div>
+//                   <div className="rounded-4 bg-info bg-opacity-10 text-info d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
+//                     <i className="bi bi-list-task fs-4"></i>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="col-12 col-md-6 col-xl-3">
+//               <div className="content-card h-100">
+//                 <div className="d-flex justify-content-between align-items-start">
+//                   <div>
+//                     <div className="text-muted small mb-2">Completed</div>
+//                     <h3 className="fw-bold mb-0">{completedCount}</h3>
+//                   </div>
+//                   <div className="rounded-4 bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
+//                     <i className="bi bi-check-circle-fill fs-4"></i>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="col-12 col-md-6 col-xl-3">
+//               <div className="content-card h-100">
+//                 <div className="d-flex justify-content-between align-items-start">
+//                   <div>
+//                     <div className="text-muted small mb-2">Pending</div>
+//                     <h3 className="fw-bold mb-0">{tasks.length - completedCount}</h3>
+//                   </div>
+//                   <div className="rounded-4 bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
+//                     <i className="bi bi-clock-fill fs-4"></i>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//           {/* ------------------------------------------------------------------------------------ */}
+
+//           {/* Recent Tasks section */}
+ 
+//   <div className="content-card h-100">
+//   <div className="d-flex justify-content-between align-items-center mb-4">
+//     <div>
+//       <h5 className="fw-bold mb-1">Recent Tasks</h5>
+//       <p className="text-muted small mb-0">
+//         {searchTerm
+//           ? `Showing ${displayedTasks.length} result(s)`
+//           : "Your latest project tasks"}
+//       </p>
+//     </div>
+
+//     <div className="dropdown">
+//       <button
+//         className="btn btn-light btn-sm rounded-pill dropdown-toggle"
+//         data-bs-toggle="dropdown"
+//       >
+//         {filter || "All"}
+//       </button>
+
+//       <ul className="dropdown-menu dropdown-menu-end">
+//         <li>
+//           <button className="dropdown-item" onClick={() => setFilter("")}>
+//             All
+//           </button>
+//         </li>
+//         <li>
+//           <button className="dropdown-item" onClick={() => setFilter("Todo")}>
+//             Todo
+//           </button>
+//         </li>
+//         <li>
+//           <button className="dropdown-item" onClick={() => setFilter("In Progress")}>
+//             In Progress
+//           </button>
+//         </li>
+//         <li>
+//           <button className="dropdown-item" onClick={() => setFilter("Completed")}>
+//             Completed
+//           </button>
+//         </li>
+//       </ul>
+//     </div>
+//   </div>
+
+//   {displayedTasks.length === 0 ? (
+//     <div className="text-center py-5">
+//       <div className="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+//            style={{ width: 72, height: 72 }}>
+//         <i className="bi bi-search text-muted fs-3"></i>
+//       </div>
+
+//       <h6 className="fw-bold mb-2">No tasks found</h6>
+
+//       <p className="text-muted mb-3">
+//         Try searching with a different task or project name.
+//       </p>
+
+//       {searchTerm && (
+//         <button
+//           className="btn btn-outline-primary btn-sm rounded-pill px-3"
+//           onClick={() => setSearchTerm("")}
+//         >
+//           Clear Search
+//         </button>
+//       )}
+//     </div>
+//   ) : (
+//     <div className="d-flex flex-column gap-3">
+//       {displayedTasks.map((task) => (
+//         <div
+//           key={task._id}
+//           className="border rounded-4 p-3 task-card-hover"
+//         >
+//           <div className="d-flex justify-content-between align-items-start gap-3">
+//             <div className="flex-grow-1">
+//               <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
+//                 <h6 className="fw-bold mb-0">{task.title}</h6>
+
+//                 <span
+//                   className={`badge ${
+//                     task.priority === "High"
+//                       ? "bg-danger-subtle text-danger"
+//                       : task.priority === "Medium"
+//                       ? "bg-warning-subtle text-warning"
+//                       : "bg-success-subtle text-success"
+//                   }`}
+//                 >
+//                   {task.priority}
+//                 </span>
+//               </div>
+
+//               <div className="d-flex align-items-center gap-3 flex-wrap text-muted small">
+//                 <span className="d-flex align-items-center gap-1">
+//                   <i className="bi bi-folder2-open"></i>
+//                   {task.project?.name || "No Project"}
+//                 </span>
+
+//                 <span className="d-flex align-items-center gap-1">
+//                   <i className="bi bi-calendar-event"></i>
+//                   {task.dueDate
+//                     ? new Date(task.dueDate).toLocaleDateString()
+//                     : "No due date"}
+//                 </span>
+//               </div>
+//             </div>
+
+//             <span
+//               className={`badge ${
+//                 task.status === "Completed"
+//                   ? "bg-success-subtle text-success"
+//                   : task.status === "In Progress"
+//                   ? "bg-primary-subtle text-primary"
+//                   : "bg-secondary-subtle text-secondary"
+//               }`}
+//             >
+//               {task.status}
+//             </span>
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   )}
+// </div> 
+
+// {/* --------------------------------------------------------------- */}
+//           {/* <div className="content-card mb-4">
+//             <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-3">
+//               <h5 className="mb-0 fw-bold">Recent Tasks</h5>
+
+//               <div className="filter-group">
+//                 {['In Progress', 'Completed', 'Blocked'].map((status) => (
+//                   <button
+//                     key={status}
+//                     className={`filter-btn ${filter === status ? 'active' : ''}`}
+//                     onClick={() => setFilter(status)}
+//                   >
+//                     {status}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {recentTasks.length === 0 ? (
+//               <div className="text-center py-5">
+//                 <i className="bi bi-list-task display-4 text-muted"></i>
+//                 <h6 className="mt-3 fw-bold">No tasks found</h6>
+//                 <p className="text-muted mb-0">Create tasks to see them here.</p>
+//               </div>
+//             ) : (
+//               recentTasks.map((task) => (
+//                 <div key={task._id} className="task-card">
+//                   <div className="d-flex justify-content-between align-items-start flex-wrap gap-3">
+//                     <div>
+//                       <div className="fw-semibold fs-6">{task.name}</div>
+//                       <div className="text-muted small mt-1">
+//                         {task.project?.name} • {task.team?.name}
+//                       </div>
+//                     </div>
+
+//                     <span className={`badge ${
+//                       task.status === 'Completed'
+//                         ? 'bg-success'
+//                         : task.status === 'Blocked'
+//                         ? 'bg-danger'
+//                         : 'bg-primary'
+//                     } rounded-pill px-3 py-2`}
+//                     >
+//                       {task.status}
+//                     </span>
+//                   </div>
+
+//                   <div className="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-3">
+//                     <div className="d-flex align-items-center gap-2 flex-wrap">
+//                       {task.owners?.slice(0, 2).map((owner) => (
+//                         <div key={owner._id} className="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style={{ width: 32, height: 32, fontSize: 12 }}>
+//                           {owner.name?.charAt(0).toUpperCase()}
+//                         </div>
+//                       ))}
+
+//                       <small className="text-muted">
+//                         Due: {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "No due date"}
+//                       </small>
+//                     </div>
+
+//                     <div className="text-muted small">
+//                       {task.timeToComplete} day{task.timeToComplete > 1 ? 's' : ''}
+//                     </div>
+//                   </div>
+//                 </div>
+//               ))
+//             )}
+//           </div> */}
+//         </>
+//       )}
+//     </Layout>
+//   );
+// };
+
+// export default Dashboard;
+
+// -------------------------------------------------------
+
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import TaskSearch from "../components/TaskSearch";
+import "../styles/dashboard.css";
+
+const quickLinks = [
+  {
+    title: "Projects",
+    description: "View and organize projects",
+    to: "/projects",
+    icon: "bi-folder2-open",
+    className: "dashboard-quick-purple",
+  },
+  {
+    title: "Teams",
+    description: "Manage your collaborators",
+    to: "/teams",
+    icon: "bi-people",
+    className: "dashboard-quick-blue",
+  },
+  {
+    title: "Reports",
+    description: "Track workspace performance",
+    to: "/reports",
+    icon: "bi-bar-chart-line",
+    className: "dashboard-quick-green",
+  },
+  {
+    title: "Settings",
+    description: "Manage your account",
+    to: "/settings",
+    icon: "bi-gear",
+    className: "dashboard-quick-orange",
+  },
+];
+
+const statusOptions = [
+  { label: "All tasks", value: "" },
+  { label: "To Do", value: "To Do" },
+  { label: "In Progress", value: "In Progress" },
+  { label: "Completed", value: "Completed" },
+  { label: "Blocked", value: "Blocked" },
+];
+
+const normalizeStatus = (status) => {
+  if (status === "Todo") return "To Do";
+  return status || "To Do";
+};
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("In Progress");
-const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
+  // Fetch dashboard data when the page mounts.
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/immutability
+    const loadDashboard = async () => {
+      try {
+        const [projectsRes, tasksRes] = await Promise.all([
+          api.get("/projects"),
+          api.get("/tasks"),
+        ]);
+
+        setProjects(
+          Array.isArray(projectsRes.data) ? projectsRes.data : []
+        );
+
+        setTasks(Array.isArray(tasksRes.data) ? tasksRes.data : []);
+      } catch (error) {
+        toast.error("Failed to load dashboard data");
+        console.error("Failed to load dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     loadDashboard();
   }, []);
 
-  const loadDashboard = async () => {
-    try {
-      setLoading(true);
+  // Calculate summary statistics.
+  const stats = useMemo(() => {
+    const completed = tasks.filter(
+      (task) => normalizeStatus(task.status) === "Completed"
+    ).length;
 
-      const [projectsRes, tasksRes] = await Promise.all([
-        api.get("/projects"),
-        api.get("/tasks"),
-      ]);
+    const inProgress = tasks.filter(
+      (task) => normalizeStatus(task.status) === "In Progress"
+    ).length;
 
-      setProjects(projectsRes.data);
-      setTasks(tasksRes.data);
-    } catch (error) {
-      toast.error("Failed to load dashboard data");
-      console.log("message:",error)
-    } finally {
-      setLoading(false);
+    const todo = tasks.filter(
+      (task) => normalizeStatus(task.status) === "To Do"
+    ).length;
+
+    const blocked = tasks.filter(
+      (task) => normalizeStatus(task.status) === "Blocked"
+    ).length;
+
+    return {
+      completed,
+      inProgress,
+      todo,
+      blocked,
+      pending: tasks.length - completed,
+      completionRate: tasks.length
+        ? Math.round((completed / tasks.length) * 100)
+        : 0,
+    };
+  }, [tasks]);
+
+  // Filter tasks by status and search term.
+  const filteredTasks = useMemo(() => {
+    const search = searchTerm.trim().toLowerCase();
+
+    return tasks.filter((task) => {
+      const taskStatus = normalizeStatus(task.status);
+
+      const matchesStatus = !filter || taskStatus === filter;
+
+      const taskName = (task.title || task.name || "").toLowerCase();
+      const projectName = (task.project?.name || "").toLowerCase();
+      const teamName = (task.team?.name || "").toLowerCase();
+
+      const matchesSearch =
+        !search ||
+        taskName.includes(search) ||
+        projectName.includes(search) ||
+        teamName.includes(search);
+
+      return matchesStatus && matchesSearch;
+    });
+  }, [tasks, filter, searchTerm]);
+
+  // Show five tasks by default, but show all matching results during search.
+  const displayedTasks = searchTerm.trim()
+    ? filteredTasks
+    : filteredTasks.slice(0, 5);
+
+  const getPriorityClass = (priority) => {
+    switch (priority) {
+      case "High":
+        return "dashboard-priority-high";
+      case "Medium":
+        return "dashboard-priority-medium";
+      case "Low":
+        return "dashboard-priority-low";
+      default:
+        return "dashboard-priority-default";
     }
   };
 
-  const completedCount = useMemo(
-    () => tasks.filter((t) => t.status === "Completed").length,
-    [tasks]
-  );
+  const getStatusClass = (status) => {
+    switch (normalizeStatus(status)) {
+      case "Completed":
+        return "dashboard-status-completed";
+      case "In Progress":
+        return "dashboard-status-progress";
+      case "Blocked":
+        return "dashboard-status-blocked";
+      default:
+        return "dashboard-status-todo";
+    }
+  };
 
-  // const filteredTasks = useMemo(() => {
-  //   if (!filter) return tasks;
-  //   return tasks.filter((t) => t.status === filter);
-  // }, [tasks, filter]);
-const filteredTasks = useMemo(() => {
-  let result = tasks;
-
-  // Status filter
-  if (filter) {
-    result = result.filter((t) => t.status === filter);
-  }
-
-  // Search filter
-  const search = searchTerm.trim().toLowerCase();
-
-  if (search) {
-    result = result.filter((t) => {
-      const taskName = t.title?.toLowerCase() || "";
-      const projectName = t.project?.name?.toLowerCase() || "";
-
-      return (
-        taskName.includes(search) ||
-        projectName.includes(search)
-      );
-    });
-  }
-
-  return result;
-}, [tasks, filter, searchTerm]);
-
- 
-  const recentTasks = filteredTasks.slice(0, 5);
-
- const displayedTasks = searchTerm.trim()
-  ? filteredTasks
-  : recentTasks;
+  const getStatusIcon = (status) => {
+    switch (normalizeStatus(status)) {
+      case "Completed":
+        return "bi-check-circle-fill";
+      case "In Progress":
+        return "bi-arrow-repeat";
+      case "Blocked":
+        return "bi-exclamation-circle-fill";
+      default:
+        return "bi-circle";
+    }
+  };
 
   return (
-    <Layout title="Dashboard"
-    subtitle="Overview of projects, tasks and team activity">
-      {loading ? (
-        <div className="content-card text-center py-5">
-          <div className="spinner-border text-primary mb-3"></div>
-          <div className="text-muted">Loading dashboard...</div>
-        </div>
-      ) : (
-        <>
-        {/* search bar */}
-   <div className="content-card mb-4">
-  <div className="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
-    <div>
-      <h5 className="fw-bold mb-1">Search Tasks</h5>
-      <p className="text-muted mb-0">
-        Search by task name or project name
-      </p>
-    </div>
-
-    <TaskSearch
-      value={searchTerm}
-      onChange={setSearchTerm}
-    />
-  </div>
-</div>
-{/* ---------------------------------------------------------- */}
-
-          <div className="row g-4 mb-4">
-            <div className="col-12 col-md-6 col-xl-3">
-              <div className="content-card h-100">
-                <div className="d-flex justify-content-between align-items-start">
-                  <div>
-                    <div className="text-muted small mb-2">Total Projects</div>
-                    <h3 className="fw-bold mb-0">{projects.length}</h3>
-                  </div>
-                  <div className="rounded-4 bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
-                    <i className="bi bi-folder-fill fs-4"></i>
-                  </div>
-                </div>
-              </div>
+    <Layout
+      title="Dashboard"
+      subtitle="Your workspace overview, tasks, and team activity"
+    >
+      <div className="dashboard-page">
+        {loading ? (
+          <div className="dashboard-state-card">
+            <div className="spinner-border text-primary mb-3" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
-
-            <div className="col-12 col-md-6 col-xl-3">
-              <div className="content-card h-100">
-                <div className="d-flex justify-content-between align-items-start">
-                  <div>
-                    <div className="text-muted small mb-2">Total Tasks</div>
-                    <h3 className="fw-bold mb-0">{tasks.length}</h3>
-                  </div>
-                  <div className="rounded-4 bg-info bg-opacity-10 text-info d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
-                    <i className="bi bi-list-task fs-4"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-12 col-md-6 col-xl-3">
-              <div className="content-card h-100">
-                <div className="d-flex justify-content-between align-items-start">
-                  <div>
-                    <div className="text-muted small mb-2">Completed</div>
-                    <h3 className="fw-bold mb-0">{completedCount}</h3>
-                  </div>
-                  <div className="rounded-4 bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
-                    <i className="bi bi-check-circle-fill fs-4"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-12 col-md-6 col-xl-3">
-              <div className="content-card h-100">
-                <div className="d-flex justify-content-between align-items-start">
-                  <div>
-                    <div className="text-muted small mb-2">Pending</div>
-                    <h3 className="fw-bold mb-0">{tasks.length - completedCount}</h3>
-                  </div>
-                  <div className="rounded-4 bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center" style={{ width: 48, height: 48 }}>
-                    <i className="bi bi-clock-fill fs-4"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h5>Preparing your workspace</h5>
+            <p>We're loading your projects and tasks.</p>
           </div>
-          {/* ------------------------------------------------------------------------------------ */}
+        ) : (
+          <>
+            {/* Welcome banner */}
+            <section className="dashboard-welcome mb-4">
+              <div className="dashboard-welcome-content">
+                <div className="dashboard-welcome-label">
+                  <i className="bi bi-stars me-2"></i>
+                  YOUR WORKSPACE
+                </div>
 
-          {/* Recent Tasks section */}
- 
-  <div className="content-card h-100">
-  <div className="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h5 className="fw-bold mb-1">Recent Tasks</h5>
-      <p className="text-muted small mb-0">
-        {searchTerm
-          ? `Showing ${displayedTasks.length} result(s)`
-          : "Your latest project tasks"}
-      </p>
-    </div>
+                <h2>Make every task count.</h2>
 
-    <div className="dropdown">
-      <button
-        className="btn btn-light btn-sm rounded-pill dropdown-toggle"
-        data-bs-toggle="dropdown"
-      >
-        {filter || "All"}
-      </button>
+                <p>
+                  Keep your projects organized, stay on top of your tasks,
+                  and move your team's work forward.
+                </p>
 
-      <ul className="dropdown-menu dropdown-menu-end">
-        <li>
-          <button className="dropdown-item" onClick={() => setFilter("")}>
-            All
-          </button>
-        </li>
-        <li>
-          <button className="dropdown-item" onClick={() => setFilter("Todo")}>
-            Todo
-          </button>
-        </li>
-        <li>
-          <button className="dropdown-item" onClick={() => setFilter("In Progress")}>
-            In Progress
-          </button>
-        </li>
-        <li>
-          <button className="dropdown-item" onClick={() => setFilter("Completed")}>
-            Completed
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  {displayedTasks.length === 0 ? (
-    <div className="text-center py-5">
-      <div className="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-           style={{ width: 72, height: 72 }}>
-        <i className="bi bi-search text-muted fs-3"></i>
-      </div>
-
-      <h6 className="fw-bold mb-2">No tasks found</h6>
-
-      <p className="text-muted mb-3">
-        Try searching with a different task or project name.
-      </p>
-
-      {searchTerm && (
-        <button
-          className="btn btn-outline-primary btn-sm rounded-pill px-3"
-          onClick={() => setSearchTerm("")}
-        >
-          Clear Search
-        </button>
-      )}
-    </div>
-  ) : (
-    <div className="d-flex flex-column gap-3">
-      {displayedTasks.map((task) => (
-        <div
-          key={task._id}
-          className="border rounded-4 p-3 task-card-hover"
-        >
-          <div className="d-flex justify-content-between align-items-start gap-3">
-            <div className="flex-grow-1">
-              <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                <h6 className="fw-bold mb-0">{task.title}</h6>
-
-                <span
-                  className={`badge ${
-                    task.priority === "High"
-                      ? "bg-danger-subtle text-danger"
-                      : task.priority === "Medium"
-                      ? "bg-warning-subtle text-warning"
-                      : "bg-success-subtle text-success"
-                  }`}
-                >
-                  {task.priority}
-                </span>
+                <Link to="/projects" className="btn dashboard-primary-btn">
+                  Explore projects
+                  <i className="bi bi-arrow-right ms-2"></i>
+                </Link>
               </div>
 
-              <div className="d-flex align-items-center gap-3 flex-wrap text-muted small">
-                <span className="d-flex align-items-center gap-1">
+              <div className="dashboard-welcome-illustration">
+                <div className="dashboard-illustration-main">
+                  <i className="bi bi-kanban-fill"></i>
+                </div>
+
+                <div className="dashboard-floating-icon dashboard-floating-one">
+                  <i className="bi bi-check2-circle"></i>
+                </div>
+
+                <div className="dashboard-floating-icon dashboard-floating-two">
+                  <i className="bi bi-lightning-charge-fill"></i>
+                </div>
+
+                <div className="dashboard-floating-icon dashboard-floating-three">
+                  <i className="bi bi-stars"></i>
+                </div>
+              </div>
+            </section>
+
+            {/* Summary cards */}
+            <section className="dashboard-stats-grid mb-4">
+              <div className="dashboard-stat-card">
+                <div className="dashboard-stat-icon dashboard-stat-purple">
                   <i className="bi bi-folder2-open"></i>
-                  {task.project?.name || "No Project"}
-                </span>
+                </div>
+                <div>
+                  <span className="dashboard-stat-label">Total projects</span>
+                  <h3>{projects.length}</h3>
+                  <p>Projects in your workspace</p>
+                </div>
+              </div>
 
-                <span className="d-flex align-items-center gap-1">
-                  <i className="bi bi-calendar-event"></i>
-                  {task.dueDate
-                    ? new Date(task.dueDate).toLocaleDateString()
-                    : "No due date"}
+              <div className="dashboard-stat-card">
+                <div className="dashboard-stat-icon dashboard-stat-blue">
+                  <i className="bi bi-list-check"></i>
+                </div>
+                <div>
+                  <span className="dashboard-stat-label">Total tasks</span>
+                  <h3>{tasks.length}</h3>
+                  <p>Tasks across projects</p>
+                </div>
+              </div>
+
+              <div className="dashboard-stat-card">
+                <div className="dashboard-stat-icon dashboard-stat-green">
+                  <i className="bi bi-check2-circle"></i>
+                </div>
+                <div>
+                  <span className="dashboard-stat-label">Completed</span>
+                  <h3>{stats.completed}</h3>
+                  <p>Successfully completed</p>
+                </div>
+              </div>
+
+              <div className="dashboard-stat-card">
+                <div className="dashboard-stat-icon dashboard-stat-orange">
+                  <i className="bi bi-clock-history"></i>
+                </div>
+                <div>
+                  <span className="dashboard-stat-label">Pending tasks</span>
+                  <h3>{stats.pending}</h3>
+                  <p>Tasks yet to be completed</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Completion progress */}
+            <section className="dashboard-progress-card mb-4">
+              <div className="dashboard-section-heading">
+                <div>
+                  <h5>Overall task progress</h5>
+                  <p>See how much work has been completed.</p>
+                </div>
+
+                <span className="dashboard-progress-value">
+                  {stats.completionRate}%
                 </span>
               </div>
-            </div>
 
-            <span
-              className={`badge ${
-                task.status === "Completed"
-                  ? "bg-success-subtle text-success"
-                  : task.status === "In Progress"
-                  ? "bg-primary-subtle text-primary"
-                  : "bg-secondary-subtle text-secondary"
-              }`}
-            >
-              {task.status}
-            </span>
-          </div>
-        </div>
-      ))}
-    </div>
-  )}
-</div> 
+              <div
+                className="progress dashboard-progress-track"
+                role="progressbar"
+                aria-label="Overall task completion"
+                aria-valuenow={stats.completionRate}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <div
+                  className="progress-bar dashboard-progress-fill"
+                  style={{ width: `${stats.completionRate}%` }}
+                ></div>
+              </div>
 
-{/* --------------------------------------------------------------- */}
-          {/* <div className="content-card mb-4">
-            <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-3">
-              <h5 className="mb-0 fw-bold">Recent Tasks</h5>
+              <div className="dashboard-progress-details">
+                <span>
+                  <i className="dashboard-progress-dot dashboard-dot-completed"></i>
+                  Completed <strong>{stats.completed}</strong>
+                </span>
+                <span>
+                  <i className="dashboard-progress-dot dashboard-dot-progress"></i>
+                  In Progress <strong>{stats.inProgress}</strong>
+                </span>
+                <span>
+                  <i className="dashboard-progress-dot dashboard-dot-todo"></i>
+                  To Do <strong>{stats.todo}</strong>
+                </span>
+                <span>
+                  <i className="dashboard-progress-dot dashboard-dot-blocked"></i>
+                  Blocked <strong>{stats.blocked}</strong>
+                </span>
+              </div>
+            </section>
 
-              <div className="filter-group">
-                {['In Progress', 'Completed', 'Blocked'].map((status) => (
-                  <button
-                    key={status}
-                    className={`filter-btn ${filter === status ? 'active' : ''}`}
-                    onClick={() => setFilter(status)}
+            {/* Quick links */}
+            <section className="dashboard-quick-section mb-4">
+              <div className="dashboard-section-heading">
+                <div>
+                  <h5>Quick links</h5>
+                  <p>Jump straight to the areas you use most.</p>
+                </div>
+              </div>
+
+              <div className="dashboard-quick-grid">
+                {quickLinks.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="dashboard-quick-card"
                   >
-                    {status}
-                  </button>
+                    <div className={`dashboard-quick-icon ${item.className}`}>
+                      <i className={`bi ${item.icon}`}></i>
+                    </div>
+
+                    <div className="dashboard-quick-content">
+                      <h6>{item.title}</h6>
+                      <p>{item.description}</p>
+                    </div>
+
+                    <i className="bi bi-arrow-up-right dashboard-quick-arrow"></i>
+                  </Link>
                 ))}
               </div>
-            </div>
+            </section>
 
-            {recentTasks.length === 0 ? (
-              <div className="text-center py-5">
-                <i className="bi bi-list-task display-4 text-muted"></i>
-                <h6 className="mt-3 fw-bold">No tasks found</h6>
-                <p className="text-muted mb-0">Create tasks to see them here.</p>
-              </div>
-            ) : (
-              recentTasks.map((task) => (
-                <div key={task._id} className="task-card">
-                  <div className="d-flex justify-content-between align-items-start flex-wrap gap-3">
-                    <div>
-                      <div className="fw-semibold fs-6">{task.name}</div>
-                      <div className="text-muted small mt-1">
-                        {task.project?.name} • {task.team?.name}
-                      </div>
-                    </div>
-
-                    <span className={`badge ${
-                      task.status === 'Completed'
-                        ? 'bg-success'
-                        : task.status === 'Blocked'
-                        ? 'bg-danger'
-                        : 'bg-primary'
-                    } rounded-pill px-3 py-2`}
-                    >
-                      {task.status}
-                    </span>
-                  </div>
-
-                  <div className="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-3">
-                    <div className="d-flex align-items-center gap-2 flex-wrap">
-                      {task.owners?.slice(0, 2).map((owner) => (
-                        <div key={owner._id} className="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style={{ width: 32, height: 32, fontSize: 12 }}>
-                          {owner.name?.charAt(0).toUpperCase()}
-                        </div>
-                      ))}
-
-                      <small className="text-muted">
-                        Due: {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "No due date"}
-                      </small>
-                    </div>
-
-                    <div className="text-muted small">
-                      {task.timeToComplete} day{task.timeToComplete > 1 ? 's' : ''}
-                    </div>
-                  </div>
+            {/* Task search and recent tasks */}
+            <section className="dashboard-tasks-card">
+              <div className="dashboard-tasks-header">
+                <div>
+                  <h5>Recent tasks</h5>
+                  <p>
+                    {searchTerm.trim()
+                      ? `${filteredTasks.length} matching task(s)`
+                      : "Stay up to date with your latest work."}
+                  </p>
                 </div>
-              ))
-            )}
-          </div> */}
-        </>
-      )}
+
+                <div className="dashboard-task-filters">
+                  <div className="dashboard-search">
+                    <TaskSearch
+                      value={searchTerm}
+                      onChange={setSearchTerm}
+                    />
+                  </div>
+
+                  <select
+                    className="form-select dashboard-status-select"
+                    value={filter}
+                    onChange={(event) => setFilter(event.target.value)}
+                    aria-label="Filter tasks by status"
+                  >
+                    {statusOptions.map((option) => (
+                      <option key={option.label} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {displayedTasks.length === 0 ? (
+                <div className="dashboard-empty-state">
+                  <div className="dashboard-empty-icon">
+                    <i className="bi bi-search"></i>
+                  </div>
+
+                  <h6>No tasks found</h6>
+
+                  <p>
+                    {searchTerm.trim()
+                      ? "Try another search term or change the status filter."
+                      : "There are no tasks matching this status yet."}
+                  </p>
+
+                  {(searchTerm.trim() || filter) && (
+                    <button
+                      type="button"
+                      className="btn dashboard-clear-btn"
+                      onClick={() => {
+                        setSearchTerm("");
+                        setFilter("");
+                      }}
+                    >
+                      Clear filters
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="dashboard-task-list">
+                  {displayedTasks.map((task) => {
+                    const taskTitle = task.title || task.name || "Untitled task";
+
+                    return (
+                      <article className="dashboard-task-item" key={task._id}>
+                        <div className="dashboard-task-main">
+                          <div className="dashboard-task-icon">
+                            <i className="bi bi-list-task"></i>
+                          </div>
+
+                          <div className="dashboard-task-information">
+                            <div className="dashboard-task-title-row">
+                              <h6>{taskTitle}</h6>
+
+                              <span
+                                className={`dashboard-priority-badge ${getPriorityClass(
+                                  task.priority
+                                )}`}
+                              >
+                                {task.priority || "Normal"}
+                              </span>
+                            </div>
+
+                            <div className="dashboard-task-meta">
+                              <span>
+                                <i className="bi bi-folder2-open"></i>
+                                {task.project?.name || "No project"}
+                              </span>
+
+                              <span>
+                                <i className="bi bi-people"></i>
+                                {task.team?.name || "No team"}
+                              </span>
+
+                              <span>
+                                <i className="bi bi-calendar-event"></i>
+                                {task.dueDate
+                                  ? new Date(task.dueDate).toLocaleDateString()
+                                  : "No due date"}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <span
+                          className={`dashboard-status-badge ${getStatusClass(
+                            task.status
+                          )}`}
+                        >
+                          <i className={`bi ${getStatusIcon(task.status)}`}></i>
+                          {normalizeStatus(task.status)}
+                        </span>
+                      </article>
+                    );
+                  })}
+                </div>
+              )}
+
+              {!searchTerm.trim() && filteredTasks.length > 5 && (
+                <div className="dashboard-task-footer">
+                  <span>
+                    Showing 5 of {filteredTasks.length} matching tasks
+                  </span>
+                  <Link to="/projects">
+                    Explore projects
+                    <i className="bi bi-arrow-right ms-2"></i>
+                  </Link>
+                </div>
+              )}
+            </section>
+          </>
+        )}
+      </div>
     </Layout>
   );
 };

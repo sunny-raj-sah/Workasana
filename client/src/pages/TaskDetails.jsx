@@ -178,7 +178,7 @@ const [showEdit, setShowEdit] = useState(false);
               <div className="text-muted small mb-3">Owners</div>
 
               <div className="d-flex flex-wrap gap-3">
-                {task.owners?.map((owner) => (
+                {/* {task.owners?.map((owner) => (
                   <div key={owner._id} className="d-flex align-items-center gap-3 p-3 border rounded-4 min-width-0">
                     <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: 44, height: 44 }}>
                       {owner.name?.charAt(0).toUpperCase()}
@@ -189,7 +189,31 @@ const [showEdit, setShowEdit] = useState(false);
                       <div className="text-muted small text-truncate">{owner.email}</div>
                     </div>
                   </div>
-                ))}
+                ))} */}
+                {task.owners?.map((owner) => {
+  const ownerName = owner?.name || owner?.email || "Unnamed user";
+
+  return (
+    <div
+      key={owner._id}
+      className="d-flex align-items-center gap-3 p-3 border rounded-4 min-width-0"
+    >
+      <div
+        className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0"
+        style={{ width: 44, height: 44 }}
+      >
+        {ownerName.charAt(0).toUpperCase()}
+      </div>
+
+      <div className="min-width-0">
+        <div className="fw-semibold text-truncate">{ownerName}</div>
+        <div className="text-muted small text-truncate">
+          {owner?.email || ""}
+        </div>
+      </div>
+    </div>
+  );
+})}
               </div>
             </div>
           </div>

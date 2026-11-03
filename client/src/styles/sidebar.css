@@ -1,0 +1,287 @@
+
+/* =========================================
+   Workasana Sidebar
+   Matching the landing page design
+========================================= */
+
+.sidebar.sidebar-modern {
+  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 18px 20px;
+  background: #fffefa;
+  border-right: 1px solid #eeece6;
+  box-shadow: 4px 0 24px rgba(21, 26, 45, 0.025);
+}
+
+/* Brand */
+
+.sidebar-modern .sidebar-brand {
+  padding: 0 8px 30px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f0eee8;
+}
+
+.sidebar-modern .sidebar-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #151a2d;
+  text-decoration: none;
+}
+
+.sidebar-modern .sidebar-brand-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #635bff;
+  border-radius: 13px;
+  font-size: 1.15rem;
+  box-shadow: 0 5px 12px rgba(99, 91, 255, 0.2);
+}
+
+.sidebar-modern .sidebar-brand-name {
+  color: #151a2d;
+  font-size: 1.3rem;
+  font-weight: 750;
+  letter-spacing: -0.8px;
+}
+
+.sidebar-modern .sidebar-brand-name span {
+  color: #635bff;
+}
+
+/* Navigation */
+
+.sidebar-modern .sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+
+.sidebar-modern .sidebar-section-label {
+  padding: 12px 12px 9px;
+  color: #9998a5;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.sidebar-modern .sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 46px;
+  padding: 11px 13px;
+  color: #777789;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sidebar-modern .sidebar-link > i:first-child {
+  width: 20px;
+  color: #92919f;
+  font-size: 1.05rem;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.sidebar-modern .sidebar-link:hover {
+  color: #4b43d4;
+  background: #f5f4ff;
+  border-color: #efedff;
+  transform: translateX(2px);
+}
+
+.sidebar-modern .sidebar-link:hover > i:first-child {
+  color: #635bff;
+}
+
+/* Active navigation */
+
+.sidebar-modern .sidebar-link.sidebar-link-active {
+  color: #4b43d4;
+  background: #efedff;
+  border-color: #e7e4ff;
+  font-weight: 650;
+}
+
+.sidebar-modern .sidebar-link.sidebar-link-active > i:first-child {
+  color: #635bff;
+}
+
+.sidebar-modern .sidebar-link-active::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  background: #635bff;
+  border-radius: 0 5px 5px 0;
+}
+
+.sidebar-modern .sidebar-link-arrow {
+  margin-left: auto;
+  color: #635bff;
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-modern .sidebar-link-active .sidebar-link-arrow,
+.sidebar-modern .sidebar-link:hover .sidebar-link-arrow {
+  opacity: 1;
+}
+
+/* Bottom branding */
+
+.sidebar-modern .sidebar-bottom {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: auto;
+  padding: 15px 12px;
+  background: #f5f4ff;
+  border: 1px solid #efedff;
+  border-radius: 14px;
+}
+
+.sidebar-modern .sidebar-bottom-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  min-width: 35px;
+  color: #635bff;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.sidebar-modern .sidebar-bottom-title {
+  color: #252942;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.sidebar-modern .sidebar-bottom-text {
+  margin-top: 3px;
+  color: #858596;
+  font-size: 0.68rem;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .sidebar.sidebar-modern {
+    width: 220px;
+    min-width: 220px;
+    padding: 20px 14px;
+  }
+
+  .sidebar-modern .sidebar-brand {
+    padding-bottom: 22px;
+  }
+}
+
+/* Mobile sidebar controls */
+.sidebar-mobile-toggle,
+.sidebar-close-btn {
+  display: none;
+}
+
+/* Mobile responsive sidebar */
+@media (max-width: 768px) {
+  .sidebar.sidebar-modern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1051;
+
+    width: 270px;
+    min-width: 270px;
+    height: 100dvh;
+    min-height: 100dvh;
+
+    padding: 22px 18px;
+    overflow-y: auto;
+
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.sidebar-modern.sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-modern .sidebar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sidebar-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    color: #777789;
+    background: #f5f4ff;
+    border: none;
+    border-radius: 9px;
+  }
+
+  .sidebar-mobile-toggle {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 1040;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    color: #4b43d4;
+    background: #fffefa;
+    border: 1px solid #eeece6;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(21, 26, 45, 0.08);
+
+    font-size: 1.4rem;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+
+    background: rgba(21, 26, 45, 0.4);
+    backdrop-filter: blur(2px);
+  }
+}

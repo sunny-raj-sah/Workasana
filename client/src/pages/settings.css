@@ -1,0 +1,81 @@
+/* Appearance setting */
+.settings-theme-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--card-bg);
+}
+
+.settings-theme-option-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.settings-theme-option-info strong {
+  color: var(--text-color);
+}
+
+.settings-theme-option-info p {
+  margin: 4px 0 0;
+  color: var(--muted-text);
+  font-size: 13px;
+}
+
+.settings-theme-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--secondary-bg);
+  color: var(--text-color);
+  font-size: 20px;
+}
+
+.settings-theme-toggle {
+  width: 48px;
+  height: 26px;
+  padding: 3px;
+  border: none;
+  border-radius: 20px;
+  background: #adb5bd;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.settings-theme-toggle span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+[data-theme="dark"] .settings-theme-toggle {
+  background: #4f7cff;
+}
+
+[data-theme="dark"] .settings-theme-toggle span {
+  transform: translateX(22px);
+}
+
+/* Keep API label and URL on the same row */
+.settings-api-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.settings-api-row strong {
+  min-width: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
+}

@@ -254,3 +254,169 @@ a {
   color: #0d6efd;
   font-weight: 600;
 }
+
+/* global stylesheet */
+ /* Default Light Theme */
+/* ==============================
+   GLOBAL THEME VARIABLES
+================================ */
+
+:root {
+  color-scheme: light;
+
+  --app-bg: #f4f6f8;
+  --card-bg: #ffffff;
+  --text-color: #1f2937;
+  --muted-text: #6b7280;
+  --border-color: #e5e7eb;
+  --secondary-bg: #f1f3f5;
+  --input-bg: #ffffff;
+  --hover-bg: #f8f9fa;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --app-bg: #111827;
+  --card-bg: #1f2937;
+  --text-color: #f9fafb;
+  --muted-text: #9ca3af;
+  --border-color: #374151;
+  --secondary-bg: #374151;
+  --input-bg: #1f2937;
+  --hover-bg: #374151;
+}
+
+/* ==============================
+   GLOBAL APPLICATION STYLES
+================================ */
+
+body {
+  background: var(--app-bg);
+  color: var(--text-color);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.main-content {
+  background: var(--app-bg);
+  color: var(--text-color);
+}
+
+.topbar,
+.content-card,
+.settings-card,
+.settings-welcome,
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.task-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.settings-card-heading h5,
+.settings-profile-summary h6,
+.settings-info-row strong,
+.settings-info-row span,
+.settings-welcome h2,
+.settings-welcome p {
+  color: var(--text-color);
+}
+
+.settings-card-heading p {
+  color: var(--muted-text);
+}
+
+/* ==============================
+   FORMS
+================================ */
+
+.form-control,
+.form-select {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.form-control::placeholder {
+  color: var(--muted-text);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-color: #2563eb;
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  background-color: var(--secondary-bg);
+  color: var(--muted-text);
+}
+
+/* ==============================
+   FILTERS AND DROPDOWNS
+================================ */
+
+.filter-btn {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.filter-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+.filter-dropdown {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+.filter-dropdown button {
+  color: var(--text-color);
+}
+
+.filter-dropdown button:hover {
+  background-color: var(--hover-bg);
+}
+
+.filter-dropdown button.selected {
+  background-color: #1d4ed8;
+  color: #ffffff;
+}
+
+/* ==============================
+   SIDEBAR
+================================ */
+
+/* Keep the existing dark sidebar design in both themes */
+.sidebar {
+  background: #111827;
+  color: #ffffff;
+}
+
+/* ==============================
+   THEME TRANSITIONS
+================================ */
+
+.topbar,
+.content-card,
+.task-card,
+.settings-card,
+.settings-welcome,
+.card,
+.form-control,
+.form-select,
+.filter-dropdown {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}

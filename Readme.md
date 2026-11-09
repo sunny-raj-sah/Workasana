@@ -1,4 +1,4 @@
-# Workasana — Task Management Application
+# Workasana  
 
 Workasana is a full-stack task management application built with **React, Node.js, Express.js, and MongoDB**.
 
